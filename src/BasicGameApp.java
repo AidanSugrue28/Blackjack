@@ -5,20 +5,25 @@ public class BasicGameApp {
     public Dealer dl;
     public boolean gameOn;
 
-
     public static void main(String[] args) {
         new BasicGameApp();
     }
 
     public BasicGameApp() {
-        System.out.println("welcome to backjack");
+        System.out.println("welcome to blackjack");
+
         deck = new Card[52];
 
         for (int i = 0; i < 13; i++) {
             deck[i] = new Card(10, i, "diamonds");
-            deck[i].printInfo();
         }
 
+        printDeck();
+    }
+
+    public void printDeck() {
+        for (int i = 0; i < 13; i++) {
+            deck[i].printInfo();
+        }
     }
 }
-
