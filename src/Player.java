@@ -11,9 +11,8 @@ public class Player {
         isBust = false;
         isHit = false;
         name = "Player";
-        hand = new Card[10];
+        hand = new Card[2];
 
-        printInfo();
     }
 
     public void printInfo() {
@@ -21,12 +20,15 @@ public class Player {
         System.out.println("Card Total: " + cardTotal);
         System.out.println("Is Bust: " + isBust);
         System.out.println("Is Hit: " + isHit);
-
-        System.out.println("Hand:");
         for (int i = 0; i < hand.length; i++) {
-            if (hand[i] != null) {
                 hand[i].printInfo();
-            }
         }
+    }
+    public void calculateTotal(){
+        int addValue = 0;
+        for(int d = 0; d < hand.length; d++){
+            addValue = addValue + hand[d].value;
+        }
+        cardTotal = addValue;
     }
 }
