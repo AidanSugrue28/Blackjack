@@ -14,6 +14,24 @@ public class Dealer {
         printInfo();
     }
 
+    public void calculateTotal() {
+        cardTotal = 0;
+
+        for (int i = 0; i < hand.length; i++) {
+            if (hand[i] != null) {
+                cardTotal = cardTotal + hand[i].value;
+            }
+        }
+
+        if(cardTotal > 16){
+            isOver16 = true;
+        }
+
+        if(cardTotal > 21){
+            isBust = true;
+        }
+    }
+
     public void printInfo() {
         System.out.println("Dealer Info:");
         System.out.println("Card Total: " + cardTotal);
