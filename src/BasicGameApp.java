@@ -32,6 +32,7 @@ public class BasicGameApp {
 
         pl.hand[0] = deck[0];
         pl.hand[1] = deck[1];
+        pl.hand[2] = deck[4];
 
         dl.hand[0] = deck[2];
         dl.hand[1] = deck[3];
@@ -50,6 +51,18 @@ public class BasicGameApp {
 
         pl.printInfo();
         dl.printInfo();
+
+        System.out.println();
+        System.out.println("do you want to hit(yes or no)?");
+        String aHit = s.nextLine();
+
+        System.out.println(aHit);
+
+        if(aHit.equals("yes")){
+            System.out.println("you chose to hit");
+            System.out.println("here is you card:" + pl.hand[2]);
+        }
+
 
     }
 
