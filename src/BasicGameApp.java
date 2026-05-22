@@ -53,7 +53,7 @@ public class BasicGameApp {
         dl.printInfo();
 
         System.out.println();
-        System.out.println("do you want to hit(yes or no)?");
+        System.out.println("do you want to hit(yes or no)");
         String aHit = s.nextLine();
 
         System.out.println(aHit);
