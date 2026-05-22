@@ -12,7 +12,7 @@ public class BasicGameApp {
     }
 
     public BasicGameApp() {
-        System.out.println("welcome to blackjack");
+        System.out.println("welcome to blackjack!");
 
         deck = new Card[52];
         pl = new Player();
@@ -32,7 +32,6 @@ public class BasicGameApp {
 
         pl.hand[0] = deck[0];
         pl.hand[1] = deck[1];
-        pl.hand[2] = deck[4];
 
         dl.hand[0] = deck[2];
         dl.hand[1] = deck[3];
@@ -60,7 +59,12 @@ public class BasicGameApp {
 
         if(aHit.equals("yes")){
             System.out.println("you chose to hit");
-            System.out.println("here is you card:" + pl.hand[2]);
+            pl.hand = new Card[3];
+            pl.hand[0] = deck[0];
+            pl.hand[1] = deck[1];
+            pl.hand[2] = deck[4];
+            System.out.println("here is you card:");
+            pl.hand[2].printInfo();
         }
 
 
