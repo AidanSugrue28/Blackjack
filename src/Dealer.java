@@ -1,48 +1,59 @@
 public class Dealer {
 
-    public boolean isOver16;
     public int cardTotal;
-    public Card[] hand;
     public boolean isBust;
 
+    public Card[] hand;
+    public int cardCount;
+
     public Dealer() {
-        isOver16 = false;
+
         cardTotal = 0;
         isBust = false;
-        hand = new Card[10];
 
-        printInfo();
+        hand = new Card[10];
+        cardCount = 0;
+    }
+
+    public void addCard(Card newCard) {
+        hand[cardCount] = newCard;
+        cardCount++;
+
+        calculateTotal();
     }
 
     public void calculateTotal() {
-        cardTotal = 0;
 
-        for (int i = 0; i < hand.length; i++) {
-            if (hand[i] != null) {
-                cardTotal = cardTotal + hand[i].value;
+        cardTotal = 0;
+        int aceCount = 0;
+
+        for (int i = 0; i < cardCount; i++) {
+
+            cardTotal += hand[i].value;
+
+            if (hand[i].name.equals("Ace")) {
+                aceCount++;
             }
         }
 
-        if(cardTotal > 16){
-            isOver16 = true;
+        while (cardTotal > 21 && aceCount > 0) {
+            cardTotal -= 10;
+            aceCount--;
         }
 
-        if(cardTotal > 21){
+        if (cardTotal > 21) {
             isBust = true;
         }
     }
 
-    public void printInfo() {
-        System.out.println("Dealer Info:");
-        System.out.println("Card Total: " + cardTotal);
-        System.out.println("Is Over 16: " + isOver16);
-        System.out.println("Is Bust: " + isBust);
+    public void printHand() {
 
-        System.out.println("Hand:");
-        for (int i = 0; i < hand.length; i++) {
-            if (hand[i] != null) {
-                hand[i].printInfo();
-            }
+        System.out.println("Dealer Hand:");
+
+        for (int i = 0; i < cardCount; i++) {
+            hand[i].printInfo();
         }
+
+        System.out.println("Dealer Total = " + cardTotal);
     }
 }

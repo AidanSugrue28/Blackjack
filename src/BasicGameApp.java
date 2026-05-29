@@ -12,62 +12,108 @@ public class BasicGameApp {
     }
 
     public BasicGameApp() {
-        System.out.println("welcome to blackjack!");
+
+        Scanner s = new Scanner(System.in);
+
+        System.out.println("Welcome to Blackjack!");
 
         deck = new Card[52];
         pl = new Player();
         dl = new Dealer();
 
         int cardIndex = 0;
-        for (int x=0;x<4; x++) {
-            for (int i = 0; i < 13; i++) {
-                deck[cardIndex] = new Card(10, i, x);
+
+        for (int suit = 0; suit < 4; suit++) {
+
+            for (int value = 0; value < 13; value++) {
+
+                deck[cardIndex] = new Card(10, value, suit);
                 cardIndex++;
             }
-
         }
 
         shuffle();
-        printDeck();
 
-        pl.hand[0] = deck[0];
-        pl.hand[1] = deck[1];
+        int deckPosition = 0;
 
-        dl.hand[0] = deck[2];
-        dl.hand[1] = deck[3];
+        System.out.println("What is your name?");
+        pl.name = s.nextLine();
 
-        Scanner s = new Scanner(System.in);
+        // initial deal
+        pl.addCard(deck[deckPosition++]);
+        pl.addCard(deck[deckPosition++]);
 
-        System.out.println("what is your name?");
-        String aName = s.nextLine();
+        dl.addCard(deck[deckPosition++]);
+        dl.addCard(deck[deckPosition++]);
 
-        System.out.println(aName);
+        // PLAYER TURN
+        boolean playerTurn = true;
 
-        pl.name = aName;
+        while (playerTurn) {
 
-        pl.calculateTotal();
-        dl.calculateTotal();
+            System.out.println();
+            pl.printHand();
 
-        pl.printInfo();
-        dl.printInfo();
+            if (pl.isBust) {
+                System.out.println("You busted!");
+                return;
+            }
 
-        System.out.println();
-        System.out.println("do you want to hit(yes or no)?");
-        String aHit = s.nextLine();
+            System.out.println();
+            System.out.println("Hit or Stand?");
+            String choice = s.nextLine();
 
-        System.out.println(aHit);
+            if (choice.equalsIgnoreCase("hit")) {
 
-        if(aHit.equals("yes")){
-            System.out.println("you chose to hit");
-            pl.hand = new Card[3];
-            pl.hand[0] = deck[0];
-            pl.hand[1] = deck[1];
-            pl.hand[2] = deck[4];
-            System.out.println("here is you card:");
-            pl.hand[2].printInfo();
+                Card newCard = deck[deckPosition++];
+
+                System.out.println("You drew:");
+                newCard.printInfo();
+
+                pl.addCard(newCard);
+
+            } else {
+
+                playerTurn = false;
+            }
         }
 
+        // DEALER TURN
+        System.out.println();
+        System.out.println("Dealer Turn:");
 
+        while (dl.cardTotal < 17) {
+
+            Card newCard = deck[deckPosition++];
+
+            System.out.println("Dealer draws:");
+            newCard.printInfo();
+
+            dl.addCard(newCard);
+        }
+
+        dl.printHand();
+
+        if (dl.isBust) {
+            System.out.println("Dealer busted! You win!");
+            return;
+        }
+
+        // WINNER
+        System.out.println();
+
+        if (pl.cardTotal > dl.cardTotal) {
+
+            System.out.println("You win!");
+
+        } else if (pl.cardTotal < dl.cardTotal) {
+
+            System.out.println("Dealer wins!");
+
+        } else {
+
+            System.out.println("Push! Tie game.");
+        }
     }
 
     public void printDeck() {
