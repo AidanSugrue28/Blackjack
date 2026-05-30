@@ -35,7 +35,6 @@ public class Player {
             }
         }
 
-        // turns aces into 1 if needed
         while (cardTotal > 21 && aceCount > 0) {
             cardTotal -= 10;
             aceCount--;
@@ -54,5 +53,9 @@ public class Player {
         }
 
         System.out.println("Total = " + cardTotal);
+    }
+
+    public boolean hasBlackjack() {
+        return cardCount == 2 && cardTotal == 21;
     }
 }

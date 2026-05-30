@@ -8,7 +8,21 @@ public class BasicGameApp {
     public boolean gameOn;
 
     public static void main(String[] args) {
-        new BasicGameApp();
+        Scanner s = new Scanner(System.in);
+
+        while(true){
+            new BasicGameApp();
+
+            System.out.println();
+            System.out.println("Play again? (yes/no)");
+            String input = s.nextLine();
+
+            if(!input.equalsIgnoreCase("yes")){
+                break;
+            }
+        }
+
+        System.out.println("Thanks for playing!");
     }
 
     public BasicGameApp() {
@@ -24,9 +38,7 @@ public class BasicGameApp {
         int cardIndex = 0;
 
         for (int suit = 0; suit < 4; suit++) {
-
             for (int value = 0; value < 13; value++) {
-
                 deck[cardIndex] = new Card(10, value, suit);
                 cardIndex++;
             }
@@ -46,6 +58,27 @@ public class BasicGameApp {
         dl.addCard(deck[deckPosition++]);
         dl.addCard(deck[deckPosition++]);
 
+        System.out.println("Dealer shows:");
+        dl.hand[0].printInfo();
+        System.out.println("Hidden card.");
+
+        // BLACKJACK CHECK
+        if(pl.hasBlackjack() && dl.hasBlackjack()){
+            System.out.println("Push! Both blackjack.");
+            return;
+        }
+
+        if(pl.hasBlackjack()){
+            System.out.println("BLACKJACK! You win!");
+            return;
+        }
+
+        if(dl.hasBlackjack()){
+            System.out.println("Dealer has blackjack!");
+            dl.printHand();
+            return;
+        }
+
         // PLAYER TURN
         boolean playerTurn = true;
 
@@ -60,7 +93,7 @@ public class BasicGameApp {
             }
 
             System.out.println();
-            System.out.println("Hit or Stand?");
+            System.out.println("Hit, Stand, or Double?");
             String choice = s.nextLine();
 
             if (choice.equalsIgnoreCase("hit")) {
@@ -72,6 +105,17 @@ public class BasicGameApp {
 
                 pl.addCard(newCard);
 
+            } else if(choice.equalsIgnoreCase("double")) {
+
+                Card newCard = deck[deckPosition++];
+
+                System.out.println("You doubled down and drew:");
+                newCard.printInfo();
+
+                pl.addCard(newCard);
+
+                playerTurn = false;
+
             } else {
 
                 playerTurn = false;
@@ -80,7 +124,8 @@ public class BasicGameApp {
 
         // DEALER TURN
         System.out.println();
-        System.out.println("Dealer Turn:");
+        System.out.println("Dealer reveals:");
+        dl.printHand();
 
         while (dl.cardTotal < 17) {
 
@@ -130,6 +175,5 @@ public class BasicGameApp {
             deck[randy] = deck[w];
             deck[w] = helper;
         }
-
     }
 }

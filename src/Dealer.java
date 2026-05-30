@@ -56,4 +56,8 @@ public class Dealer {
 
         System.out.println("Dealer Total = " + cardTotal);
     }
+
+    public boolean hasBlackjack() {
+        return cardCount == 2 && cardTotal == 21;
+    }
 }

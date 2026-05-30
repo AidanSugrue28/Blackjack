@@ -56,14 +56,12 @@ public class Card {
             suit = "clubs";
         }else if (psuit == 3){
             suit = "spades";
-    }
-
+        }
 
         printInfo();
     }
 
     public void printInfo() {
-        System.out.println("The " + name + " of " + suit + " is worth "
-                + value + " points.");
+        System.out.println(name + " of " + suit);
     }
 }
