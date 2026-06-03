@@ -29,7 +29,7 @@ public class BasicGameApp {
 
         Scanner s = new Scanner(System.in);
 
-        System.out.println("Welcome to Blackjack!!");
+        System.out.println("Welcome to Blackjack!");
 
         deck = new Card[52];
         pl = new Player();
